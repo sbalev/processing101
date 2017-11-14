@@ -1,15 +1,11 @@
 int r = 25;
-float x;
-float y;
+float x = r;
+float y = r;
 float v = 2;
-float alpha = random(TWO_PI);
-float vx = v * cos(alpha);
-float vy = v * sin(alpha);
+int etat = 0;
 
 void setup() {
   size(200, 200);
-  x = random(r, width - r);
-  y = random(r, height - r);
   noStroke();
   fill(127);
   ellipseMode(RADIUS);
@@ -18,12 +14,30 @@ void setup() {
 void draw() {
   background(255);
   ellipse(x, y, r, r);
-  x += vx;
-  y += vy;
-  if (x < r || x > width - r) {
-    vx = -vx;
-  }
-  if (y < r || y > height - r) {
-    vy = -vy;
+
+  if (etat == 0) {
+    x += v;
+    if (x > width - r) {
+      x = width - r;
+      etat = 1;
+    }
+  } else if (etat == 1) {
+    y += v;
+    if (y > height - r) {
+      y = height - r;
+      etat = 2;
+    }
+  } else if (etat == 2) {
+    x -= v;
+    if (x < r) {
+      x = r;
+      etat = 3;
+    }
+  } else {
+    y -= v;
+    if (y < r) {
+      y = r;
+      etat = 0;
+    }
   }
 }
