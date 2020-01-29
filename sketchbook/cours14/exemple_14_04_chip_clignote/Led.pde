@@ -27,4 +27,8 @@ class Led {
   void eteindre() {
     on = false;
   }
+  
+  boolean estAllumee() {
+    return on;
+  }
 }
